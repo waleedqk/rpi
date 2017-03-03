@@ -3,9 +3,12 @@
 sudo fdisk -l
 
 # start command line of gparted
-sudo parted
+sudo parted /dev/mmcblk0
+# set appropriate units
+unit chs
 # list all partitions
 print
+# exit parted
 quit
 
 # umount the sd card
