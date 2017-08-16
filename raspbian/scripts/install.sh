@@ -1,2 +1,2 @@
 sudo apt-get update
-sudo apt-get install mplayer
+sudo apt-get install mplayer -y
