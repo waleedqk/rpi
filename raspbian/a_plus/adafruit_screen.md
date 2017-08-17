@@ -34,6 +34,11 @@ EndSection
 '''
 ## change the Option "fbdev" "/dev/fb0" line to Option "fbdev" "/dev/fb1" if you want the xdisplay on the PiTFT
 
+### Test Image (fbi)
+mkdir -p /home/pi/Pictures/adaf/
+cd /home/pi/Pictures/adaf
+wget http://adafruit-download.s3.amazonaws.com/adapiluv320x240.jpg
+sudo fbi -T 2 -d /dev/fb1 -noverbose -a adapiluv320x240.jpg
 
 ### Test Video (using mplayer)
 mkdir -p /home/pi/Videos/bunny
