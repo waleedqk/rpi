@@ -7,6 +7,7 @@ REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 # APP LIST
 APP_LIST=(
+    build-essential 
     cmake
     cron
     dconf-editor
@@ -34,6 +35,7 @@ APP_LIST=(
     openvpn    
     packeth
     pavucontrol
+    pkg-config
     python-dev
     python3-dev
     python-picamera 
