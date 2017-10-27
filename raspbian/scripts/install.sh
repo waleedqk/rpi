@@ -34,6 +34,8 @@ APP_LIST=(
     openvpn    
     packeth
     pavucontrol
+    python-dev
+    python3-dev
     python-picamera 
     python3-picamera
     python-pip
