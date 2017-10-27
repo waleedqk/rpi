@@ -47,8 +47,10 @@ APP_LIST=(
     telnet
     tree
     tmux
+    unzip
     vim
     vlc
+    wget
     wireshark
     xclip
     youtube-dl
