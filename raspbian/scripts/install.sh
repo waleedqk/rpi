@@ -91,6 +91,7 @@ remove_stuff()
     # Remove unused folders
     rm -rf ~/Templates
     rm -rf ~/Examples
+    sudo apt-get purge wolfram-engine -y
 }
 
 install_app()
