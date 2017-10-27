@@ -23,7 +23,7 @@ APP_LIST=(
     gparted
     gzip
     htop
-    mplayer
+    mplayer2
     netcat
     nmap
     npm
@@ -80,7 +80,6 @@ main()
                 ;;
         esac
     fi
-    #install_ros
 }
 
 remove_stuff()
@@ -127,4 +126,4 @@ configure_misc()
     sudo gpasswd -a $USER wireshark
 }
 
-main
+main "$@"
