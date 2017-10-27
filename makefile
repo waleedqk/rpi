@@ -3,7 +3,6 @@ default: git
 clean:
 	find . -type f -name '*~' -delete
 
-
 pull:
 	git pull --all
 
