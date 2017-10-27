@@ -1,26 +1,30 @@
-### 2.4" display with 320x240 16-bit color pixels
+# 2.4" display with 320x240 16-bit color pixels
 
-### Guide from
+***Guide from***
 https://learn.adafruit.com/adafruit-2-4-pitft-hat-with-resistive-touchscreen-mini-kit?view=all
 
 This design uses the hardware SPI pins (SCK, MOSI, MISO, CE0, CE1) as well as GPIO #25 and #24.
 
-### Step 1. Expand Filesystem
-sudo raspi-config
+***Step 1. Expand Filesystem***
 
-### Step 2. Install new Kernel
-curl -SLs https://apt.adafruit.com/add-pin | sudo bash
-sudo apt-get install raspberrypi-bootloader adafruit-pitft-helper raspberrypi-kernel
+  sudo raspi-config
 
-### Step 3. Enable & Configure the PiTFT
-sudo adafruit-pitft-helper -t 28r
+***Step 2. Install new Kernel***
+
+  curl -SLs https://apt.adafruit.com/add-pin | sudo bash
+  sudo apt-get install raspberrypi-bootloader adafruit-pitft-helper raspberrypi-kernel
+
+***Step 3. Enable & Configure the PiTFT***
+
+  sudo adafruit-pitft-helper -t 28r
 
 
 
-### How can I force the Pi to bring up X on the HDMI/TV monitor?
-There's two ways to do it. In older Pi installs, use the fb0 framebuffer when you want to display stuff on the HDMI/TV display, for example:
+## How can I force the Pi to bring up X on the HDMI/TV monitor?
+  There's two ways to do it. In older Pi installs, use the fb0 framebuffer when you want to display stuff on the HDMI/TV display, for example:
+
 ## FRAMEBUFFER=/dev/fb0 startx
-will use the HDMI/TV framebuffer for X windows instead of the PiTFT
+  will use the HDMI/TV framebuffer for X windows instead of the PiTFT
 
 On Jessie Pi installs, run
 ## sudo nano /usr/share/X11/xorg.conf.d/99-fbdev.conf
