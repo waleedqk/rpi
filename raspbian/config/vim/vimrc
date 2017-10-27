@@ -1,47 +1,75 @@
+function! Vundle()
+    set nocompatible              " be iMproved, required
+    filetype off                  " required
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/Vundle.vim
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+    call vundle#begin()
+    " alternatively, pass a path where Vundle should install plugins
+    "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+    " let Vundle manage Vundle, required
+    Plugin 'gmarik/Vundle.vim'
 
-" Essential Plugins
-" Run :PluginUpdate to update all plugins
+    " Essential Plugins
+    " Run :PluginUpdate to update all plugins
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'tpope/vim-vinegar'
-Plugin 'kien/ctrlp.vim'
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'jistr/vim-nerdtree-tabs'
+    Plugin 'tpope/vim-vinegar'
+    Plugin 'kien/ctrlp.vim'
 
-" See line number along the file
-set number
+    " All of your Plugins must be added before the following line
+    call vundle#end()            " required
+    filetype plugin indent on    " required
+endfunction
 
-" With the relativenumber option, each line in your file is numbered relative to the line you’re currently on
-" set relativenumber
+function! EditAppearance()
 
-set smartindent
-set tabstop=4
-set shiftwidth=5
-set expandtab
+    syntax on
 
-" Used shared clipboard to copy paste between vim and terminal
-set clipboard=unnamed
+    " See line number along the file
+    set number
 
-" Use mouse to switch between windows
-set mouse=a
+    " With the relativenumber option, each line in your file is numbered relative to the line you’re currently on
+    " set relativenumber
 
-" open a NERDTree automatically when vim starts up
-" autocmd vimenter * NERDTree
+    set smartindent
+    set tabstop=4
+    set shiftwidth=5
+    " expand tabs as spaces
+    set expandtab
 
-" map a specific key or shortcut to open NERDTree
-map <F2> :NERDTreeToggle<CR>
+    " Used shared clipboard to copy paste between vim and terminal
+    set clipboard=unnamed
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+    " Use mouse to switch between windows
+    set mouse=a
+
+    autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4
+    autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4
+    autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd FileType java setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+endfunction
+
+function! CommandModeKeyMappings()
+
+endfunction
+
+function! NerdTree()
+
+    " open a NERDTree automatically when vim starts up
+    " autocmd vimenter * NERDTree
+
+    " map a specific key or shortcut to open NERDTree
+    map <F2> :NERDTreeToggle<CR>
+
+endfunction
+
+call Vundle()
+call EditAppearance()
+call CommandModeKeyMappings()
+call NerdTree()
