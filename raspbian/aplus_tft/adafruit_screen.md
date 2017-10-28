@@ -1,7 +1,7 @@
 # 2.4" display with 320x240 16-bit color pixels
 
 ***Guide from***
-https://learn.adafruit.com/adafruit-2-4-pitft-hat-with-resistive-touchscreen-mini-kit?view=all
+  https://learn.adafruit.com/adafruit-2-4-pitft-hat-with-resistive-touchscreen-mini-kit?view=all
 
 This design uses the hardware SPI pins (SCK, MOSI, MISO, CE0, CE1) as well as GPIO #25 and #24.
 
