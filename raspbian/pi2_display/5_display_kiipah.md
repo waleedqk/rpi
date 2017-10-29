@@ -63,7 +63,7 @@ hdmi_timings=800 0 40 48 88 480 0 13 3 32 0 0 0 60 0 32000000 6
 
 **Change Display setting**
 
-This sets up the screen, if you ever want to temporarily 'undo the DPI Hat install' just delete these lines under: `sudo vim /boot/config.txt`
+This sets up the screen, if you ever want to temporarily 'undo the DPI Hat install' just delete these lines under: `sudo vim /boot/config.txt` and reboot
 
     enable_dpi_lcd=1
     display_default_lcd=1
