@@ -58,6 +58,28 @@ APP_LIST=(
     youtube-dl
 )
 
+# https://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/
+OPENCV_LIST=(
+    build-essential
+    cmake 
+    pkg-config
+    libjpeg-dev 
+    libtiff5-dev 
+    libjasper-dev 
+    libpng12-dev
+    libavcodec-dev 
+    libavformat-dev 
+    libswscale-dev 
+    libv4l-dev
+    libxvidcore-dev 
+    libx264-dev
+    libgtk2.0-dev
+    libatlas-base-dev 
+    gfortran
+    python2.7-dev 
+    python3-dev
+)
+
 apt_update()
 {
     echo "update..."
@@ -131,6 +153,60 @@ configure_misc()
     sudo dpkg-reconfigure wireshark-common
     echo "a wireshark group been created in /etc/gshadow. so add user to it"
     sudo gpasswd -a $USER wireshark
+}
+
+install_opencv()
+{
+    sudo apt-get -y install "${OPENCV_LIST[@]}"
+    cd ~
+    wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.3.1.zip
+    unzip opencv.zip
+
+    wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.3.1.zip
+    unzip opencv_contrib.zip
+
+    cd ~
+    rm opencv.zip
+    rm opencv_contrib.zip
+
+    sudo pip install virtualenv virtualenvwrapper
+    sudo pip3 install virtualenv virtualenvwrapper
+    sudo rm -rf ~/.cache/pip
+
+    echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.profile
+    echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.profile
+    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.profile
+    source ~/.profile
+
+    mkvirtualenv cv -p python3
+
+    source ~/.profile
+    workon cv
+
+    pip install numpy
+    pip3 install numpy
+
+    cd ~/opencv-3.3.1/
+    mkdir build
+    cd build
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.3.1/modules \
+    -D BUILD_EXAMPLES=ON ..
+
+    make
+
+    sudo make install
+    sudo ldconfig
+
+    ls -l /usr/local/lib/python3.4/site-packages/
+
+    cd /usr/local/lib/python3.4/site-packages/
+    sudo mv cv2.cpython-34m.so cv2.so
+
+
+    rm -rf ~/opencv-3.1.0 ~/opencv_contrib-3.1.0
 }
 
 main "$@"
