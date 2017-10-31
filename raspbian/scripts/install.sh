@@ -19,6 +19,7 @@ APP_LIST=(
     feh
     g++
     gcc
+    gnome-schedule
     git
     gksu
     gparted
@@ -36,6 +37,7 @@ APP_LIST=(
     packeth
     pavucontrol
     pkg-config
+    pure-ftpd
     python-dev
     python3-dev
     python-picamera 

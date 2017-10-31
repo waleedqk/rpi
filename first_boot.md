@@ -1,5 +1,9 @@
 # First boot
 
+**SSH into the pi**
+
+    ssh pi@
+
 **Expand Filesystem**
 
     raspi-config
