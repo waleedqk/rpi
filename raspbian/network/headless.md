@@ -20,9 +20,9 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-    ssid="ENG404"
-    psk="Pakistan123"
-    scan_ssid=1
+ssid="ENG404"
+psk="Pakistan123"
+scan_ssid=1
 }
 ```
 
