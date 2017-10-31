@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/
+
 OPENCV_VERSION="3.3.1"
 
 OPENCV_URL="https://github.com/Itseez/opencv/archive/${OPENCV_VERSION}.zip"
