@@ -25,3 +25,7 @@ network={
     scan_ssid=1
 }
 ```
+
+**SSH into the Pi**
+
+    ssh pi@raspberrypi.local
