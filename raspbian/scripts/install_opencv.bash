@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPENCV_VERSION="3.1.0"
+OPENCV_VERSION="3.3.1"
 
 OPENCV_URL="https://github.com/Itseez/opencv/archive/${OPENCV_VERSION}.zip"
 OPENCV_PACKAGE_NAME="opencv-${OPENCV_VERSION}"
@@ -27,18 +27,30 @@ install_build_dependencies() {
 
 install_global_python_dependencies() {
     sudo pip install virtualenv virtualenvwrapper
+    sudo pip3 install virtualenv virtualenvwrapper   
 }
 
-install_local_python_dependences() {
+setup_profile() {
+    sudo rm -rf ~/.cache/pip 
+    echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.profile
+    echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.profile
+    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.profile
+    source ~/.profile
+}
+
+install_local_python_dependencies() {
     pip install numpy
+    pip3 install numpy
 }
 
 download_packages() {
+    cd $HOME
     wget -c -O "${OPENCV_PACKAGE_NAME}.zip" "$OPENCV_URL"
     wget -c -O "${OPENCV_CONTRIB_PACKAGE_NAME}.zip" "$OPENCV_CONTRIB_URL"
 }
 
 unpack_packages() {
+    cd $HOME
     # unzip args:
     # -q = quiet
     # -n = never overwrite existing files
@@ -51,7 +63,7 @@ setup_virtualenv() {
     source /usr/local/bin/virtualenvwrapper.sh
     mkvirtualenv -p python3 cv
     workon cv
-    install_local_python_dependences
+    install_local_python_dependencies
 }
 
 build() {
@@ -86,6 +98,7 @@ main() {
     unpack_packages
     log "Installing global python deps..."
     install_global_python_dependencies
+    setup_profile
     log "Setting up local python environment..."
     setup_virtualenv
     log "Building OpenCV..."

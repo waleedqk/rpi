@@ -47,6 +47,7 @@ APP_LIST=(
     screen
     sqlite3
     ssh
+    sshfs
     tcpdump
     telnet
     tree
