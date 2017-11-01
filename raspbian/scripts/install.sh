@@ -136,13 +136,4 @@ configure_misc()
     sudo gpasswd -a $USER wireshark
 }
 
-create_new_user()
-{
-    sudo useradd -m odin -G sudo
-    sudo passwd odin
-    # sudo visudo
-    # sudo deluser pi
-    # sudo deluser -remove-home pi
-}
-
 main "$@"
