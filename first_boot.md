@@ -46,4 +46,6 @@ and change the pi entry (or whichever usernames have superuser rights) to
 
 **Git clone**
 
+    mkdir -p $HOME/Documents/git
+    cd $HOME/Documents/git
     git clone https://github.com/wqkhan/rpi.git
