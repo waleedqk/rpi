@@ -124,7 +124,7 @@ setup_vim()
 
 git_config() {
     git config --global user.name "Waleed Khan"
-    git config --global user.email "waleedqk@gmail.com"
+    git config --global user.email "wqkhan@uwaterloo.ca"
     #git config --global push.default matching
 }
 
