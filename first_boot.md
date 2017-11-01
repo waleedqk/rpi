@@ -22,6 +22,7 @@
 
     sudo adduser username
     sudo passwd username
+    sudo adduser username sudo
     sudo reboot
     sudo visudo
     sudo deluser pi
