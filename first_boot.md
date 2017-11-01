@@ -8,6 +8,10 @@
 
     raspi-config
 
+**List all users**
+
+    cut -d: -f1 /etc/passwd
+
 **Update the pi**
 
     sudo apt-get update
@@ -16,7 +20,7 @@
 
 **Add User**
 
-    sudo addduser username
+    sudo adduser username
     sudo passwd username
     sudo reboot
     sudo visudo
