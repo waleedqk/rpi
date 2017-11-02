@@ -5,5 +5,5 @@ camera = PiCamera()
 camera.start_preview()
 camera.image_effect = 'colorswap'
 sleep(5)
-camera.capture('/home/odin/Desktop/colorswap.jpg')
+camera.capture('/home/odin/Pictures/colorswap.jpg')
 camera.stop_preview()
