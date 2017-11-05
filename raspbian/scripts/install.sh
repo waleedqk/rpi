@@ -85,6 +85,7 @@ main()
                 install_app
                 configure_misc
                 git_config
+                update_config
                 setup_vim
                 ;;
         esac
@@ -104,6 +105,19 @@ install_app()
     echo "Installing apps now ..."
     sudo apt-get -y install "${APP_LIST[@]}"
 }
+
+update_config()
+ {
+     if [ -f $HOME"/.vimrc" ] ; then
+         rm $HOME"/.vimrc"
+     fi
+     cp $REPO_DIR"/config/vim/vimrc" $HOME"/.vimrc"
+ 
+     if [ -f $HOME"/.tmux.conf" ] ; then
+         rm $HOME"/.tmux.conf"
+     fi
+     cp $REPO_DIR"/config/tmux/tmux.conf" $HOME"/.tmux.conf"
+ }
 
 setup_vim()
 {
