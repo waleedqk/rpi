@@ -20,11 +20,13 @@ This design uses the hardware SPI pins (SCK, MOSI, MISO, CE0, CE1) as well as GP
 
 
 
-## How can I force the Pi to bring up X on the HDMI/TV monitor?
-  There's two ways to do it. In older Pi installs, use the fb0 framebuffer when you want to display stuff on the HDMI/TV display, for example:
+**How can I force the Pi to bring up X on the HDMI/TV monitor?**
 
-## FRAMEBUFFER=/dev/fb0 startx
-  will use the HDMI/TV framebuffer for X windows instead of the PiTFT
+There's two ways to do it. In older Pi installs, use the fb0 framebuffer when you want to display stuff on the HDMI/TV display, for example:
+
+  `FRAMEBUFFER=/dev/fb0 startx`
+  
+will use the HDMI/TV framebuffer for X windows instead of the PiTFT
 
 On Jessie Pi installs, run
 ## sudo nano /usr/share/X11/xorg.conf.d/99-fbdev.conf
