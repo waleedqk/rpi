@@ -10,6 +10,7 @@ APP_LIST=(
     build-essential 
     cmake
     cron
+    curl
     dconf-editor
     espeak
     exfat-fuse
