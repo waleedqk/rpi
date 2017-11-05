@@ -25,6 +25,7 @@ APP_LIST=(
     gparted
     gzip
     htop
+    libav-tools
     mplayer2
     netcat
     nmap
