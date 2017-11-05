@@ -151,4 +151,10 @@ configure_misc()
     sudo gpasswd -a $USER wireshark
 }
 
+install_webserver()
+{
+    # https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md
+    sudo apt-get install apache2 -y
+}
+
 main "$@"
