@@ -79,3 +79,5 @@ and change the pi entry (or whichever usernames have superuser rights) to
     mkdir -p $HOME/Documents/git
     cd $HOME/Documents/git
     git clone https://github.com/wqkhan/rpi.git
+    cd rpi/raspbian
+    sudo bash scripts/install.sh all
