@@ -70,6 +70,7 @@ apt_update()
 main()
 {
     apt_update
+    apt-get upgrade
     clear
 
     if [[ -z $1 ]]; then
