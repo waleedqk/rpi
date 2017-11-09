@@ -16,7 +16,7 @@ APP_LIST=(
     exfat-fuse
     exfat-utils
     expect
-    fail2ban
+    fail2ban # blocks suspicious requests coming from the internet
     fbi
     feh
     g++
@@ -61,6 +61,7 @@ APP_LIST=(
     wget
     wireshark
     xclip
+    xrdp # remote desktop application
     youtube-dl
 )
 
