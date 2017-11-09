@@ -16,6 +16,7 @@ APP_LIST=(
     exfat-fuse
     exfat-utils
     expect
+    fail2ban
     fbi
     feh
     g++
