@@ -13,3 +13,6 @@ push:
 
 git: clean push
 
+reset:
+	git fetch --all
+	git reset --hard origin/master
