@@ -28,6 +28,11 @@ scan_ssid=1
 
 # First boot
 
+**SSH DNS Spoofing**
+
+    ssh-keygen -f "/home/wqkhan/.ssh/known_hosts" -R 192.168.0.27
+    ssh-keygen -f "/home/wqkhan/.ssh/known_hosts" -R raspberrypi.local
+
 **SSH into the pi**
 
     ssh pi@raspberrypi.local
