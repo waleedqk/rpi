@@ -4,4 +4,4 @@
 
 From left to right:
 
-    16 13 12 6 5
+    16 13 12 6 5 
