@@ -27,7 +27,7 @@ APP_LIST=(
     gparted
     gzip
     htop
-    libav-tools
+    libav-tools #avconv
     mplayer2
     netcat
     nmap
@@ -43,6 +43,7 @@ APP_LIST=(
     pure-ftpd
     python-dev
     python3-dev
+    python3-gpiozero
     python-picamera 
     python3-picamera
     python-pip
