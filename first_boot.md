@@ -39,7 +39,7 @@ scan_ssid=1
 
 **Expand Filesystem**
 
-    raspi-config
+    sudo raspi-config
 
 **List all users**
 
