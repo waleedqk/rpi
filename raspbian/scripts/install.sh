@@ -104,6 +104,8 @@ remove_stuff()
     rm -rf ~/Templates
     rm -rf ~/Examples
     sudo apt-get purge wolfram-engine -y
+    mkdir -p ~/Documents/git
+    mkdir -p ~/Pictures
 }
 
 install_app()
