@@ -37,4 +37,4 @@ update_config()
     echo "Vim setup updated."
 }
 
- setup_vim
+ update_config
