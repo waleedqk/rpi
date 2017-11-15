@@ -49,6 +49,7 @@ scan_ssid=1
 
     sudo apt-get update
     sudo apt-get upgrade
+    sudo apt-get update && sudo apt-get upgrade -y
     sudo apt-get dist-upgrade
     sudo apt-get install rpi-update
     sudo rpi-update
