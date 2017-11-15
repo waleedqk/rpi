@@ -87,25 +87,28 @@ main()
                 install_app
                 ;;
             "all")
-                remove_stuff
+                config_dir
                 install_app
                 configure_misc
                 git_config
                 update_config
                 setup_vim
+                permissions
                 ;;
         esac
     fi
 }
 
-remove_stuff()
+config_dir()
 {
     # Remove unused folders
     rm -rf ~/Templates
     rm -rf ~/Examples
     sudo apt-get purge wolfram-engine -y
     mkdir -p ~/Documents/git
+    mkdir -p ~/Downloads
     mkdir -p ~/Pictures
+    mkdir -p ~/Videos
 }
 
 install_app()
@@ -156,6 +159,11 @@ configure_misc()
     sudo dpkg-reconfigure wireshark-common
     echo "a wireshark group been created in /etc/gshadow. so add user to it"
     sudo gpasswd -a $USER wireshark
+}
+
+permissions()
+{
+    sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $(whoami)
 }
 
 install_webserver()
