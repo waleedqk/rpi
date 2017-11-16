@@ -1,6 +1,6 @@
 from picamera import PiCamera
-  from time import sleep
-  from gpiozero import Button
+from time import sleep
+from gpiozero import Button
 
   button = Button(16)
   camera = PiCamera()
