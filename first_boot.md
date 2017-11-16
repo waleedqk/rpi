@@ -64,6 +64,10 @@ scan_ssid=1
     sudo deluser pi
     sudo deluser -remove-home pi
 
+**Set User permissions**
+
+    usermod -aG adm,dialout,cdrom,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $(whoami)
+
 **Make sudo require a password**
 
     sudo vim /etc/sudoers.d/010_pi-nopasswd
