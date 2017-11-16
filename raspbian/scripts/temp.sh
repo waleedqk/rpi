@@ -6,6 +6,17 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
+config_dir()
+{
+    # Remove unused folders
+    rm -rf ~/Templates
+    rm -rf ~/Examples
+    sudo apt-get purge wolfram-engine -y
+    mkdir -p ~/Documents/git
+    mkdir -p ~/Downloads
+    mkdir -p ~/Pictures
+    mkdir -p ~/Videos
+}
 
 update_config()
  {
@@ -37,5 +48,6 @@ update_config()
     echo "Vim setup updated."
 }
 
-#  update_config
- setup_vim
+config_dir
+update_config
+setup_vim
