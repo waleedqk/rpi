@@ -15,6 +15,6 @@ while True:
         print('Button Pressed')
         camera.start_preview()
         sleep(5)
-        camera.capture('/var/www/html/image.jpg')
+        camera.capture('~/Pictures/image.jpg')
         camera.stop_preview()
         time.sleep(0.2)
