@@ -1,23 +1,15 @@
 
-# list devices
-sudo fdisk -l
 
-# start command line of gparted
-sudo parted /dev/mmcblk0
-# set appropriate units
-unit chs
-# list all partitions
-print
-# exit parted
-quit
+# Change Default boot user
 
-# umount the sd card
-umount /dev/sdb1
-umount /dev/sdb2
+    sudo vim /usr/bin/raspi-config
 
-# format to FAT32 partition
-sudo mkdosfs -F 32 -I /dev/sdb
+Under that, there's a line where we will replace the "-u pi" with "-u bob", leaving the rest of the line unchanged:
 
-# dd the image to the card
-dd bs=4M if=~/path/to/raspbian-image.img of=/dev/sdb
-sudo sync
+`if id -u pi > /dev/null 2>&1; then`
+
+Next edit the line:
+
+sed /etc/lightdm/lightdm.conf -i -e "s/^#autologin-user=.*/autologin-user=pi/"
+
+By changing `autologin-user=pi` to be `autologin-user=bob`
