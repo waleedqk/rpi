@@ -97,13 +97,12 @@ apt_update()
 
 main()
 {
-    # apt_update
-    # apt-get upgrade
-    # clear
+    apt_update
+    apt-get upgrade
+    clear
 
     if [ "$NO_FLAGS" = true ]; then
         echo "No flags provided"
-        mkdir -p $CUR_USER/Videos
         # install_app
     else
         if [ -n "$INSTALL_ALL" ]; then
@@ -143,20 +142,20 @@ install_app()
 
 update_config()
  {
-     if [ -f $HOME"/.vimrc" ] ; then
-         rm $HOME"/.vimrc"
+     if [ -f $CUR_USER"/.vimrc" ] ; then
+         rm $CUR_USER"/.vimrc"
      fi
-     cp $REPO_DIR"/config/vim/vimrc" $HOME"/.vimrc"
+     cp $REPO_DIR"/config/vim/vimrc" $CUR_USER"/.vimrc"
  
-     if [ -f $HOME"/.tmux.conf" ] ; then
-         rm $HOME"/.tmux.conf"
+     if [ -f $CUR_USER"/.tmux.conf" ] ; then
+         rm $CUR_USER"/.tmux.conf"
      fi
-     cp $REPO_DIR"/config/tmux/tmux.conf" $HOME"/.tmux.conf"
+     cp $REPO_DIR"/config/tmux/tmux.conf" $CUR_USER"/.tmux.conf"
  }
 
 setup_vim()
 {
-    BUNDLE="$HOME/.vim/bundle"
+    BUNDLE="$CUR_USER/.vim/bundle"
     if [ ! -d "$BUNDLE/Vundle.vim" ]; then
         mkdir -p "$BUNDLE"
         git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLE/Vundle.vim"
