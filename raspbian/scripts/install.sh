@@ -101,7 +101,7 @@ main()
 
     if [ "$NO_FLAGS" = true ]; then
         echo "No flags provided"
-        echo "$(whoami)"
+        echo who -m | awk '{print $1;}'
         # install_app
     else
         if [ -n "$INSTALL_ALL" ]; then
