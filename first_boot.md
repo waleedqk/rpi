@@ -66,7 +66,7 @@ scan_ssid=1
 
 **Set User permissions**
 
-    usermod -aG adm,dialout,cdrom,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $(whoami)
+    sudo usermod -aG adm,dialout,cdrom,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $(whoami)
 
 **Make sudo require a password**
 
