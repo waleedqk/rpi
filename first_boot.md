@@ -91,4 +91,4 @@ and change the pi entry (or whichever usernames have superuser rights) to
     git clone git@github.com:wqkhan/rpi.git
     git clone https://github.com/wqkhan/rpi.git
     cd rpi
-    sudo bash raspbian/scripts/install.sh -a
+    sudo bash raspbian/scripts/install.sh -i

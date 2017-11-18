@@ -95,9 +95,9 @@ apt_update()
 
 main()
 {
-    # apt_update
-    # apt-get upgrade
-    # clear
+    apt_update
+    apt-get upgrade
+    clear
 
     if [ "$NO_FLAGS" = true ]; then
         echo "No flags provided"
@@ -105,38 +105,19 @@ main()
     else
         if [ -n "$INSTALL_ALL" ]; then
             echo "Fresh install"
-            # config_dir
-            # install_app
-            # configure_misc
-            # git_config
-            # update_config
-            # setup_vim
-            # permissions     
+            config_dir
+            install_app
+            configure_misc
+            git_config
+            update_config
+            setup_vim
+            permissions     
         elif   [ -n "$APPS_INSTALL" ]; then
             echo "Install apps only"
-            # install_app
+            install_app
         fi
     fi
 
-    # if [[ -z $1 ]]; then
-    #     echo "No command provided"
-    #     install_app
-    # else
-    #     case "$1" in
-    #         "install")
-    #             install_app
-    #             ;;
-    #         "all")
-    #             config_dir
-    #             install_app
-    #             configure_misc
-    #             git_config
-    #             update_config
-    #             setup_vim
-    #             permissions
-    #             ;;
-    #     esac
-    # fi
 }
 
 config_dir()
