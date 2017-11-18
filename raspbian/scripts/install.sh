@@ -95,12 +95,13 @@ apt_update()
 
 main()
 {
-    apt_update
-    apt-get upgrade
-    clear
+    # apt_update
+    # apt-get upgrade
+    # clear
 
     if [ "$NO_FLAGS" = true ]; then
         echo "No flags provided"
+        echo "$(whoami)"
         # install_app
     else
         if [ -n "$INSTALL_ALL" ]; then
