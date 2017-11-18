@@ -5,6 +5,8 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
+CUR_USER="$(who -m | awk '{print $1;}')"
+
 # APP LIST
 APP_LIST=(
     build-essential 
@@ -101,7 +103,8 @@ main()
 
     if [ "$NO_FLAGS" = true ]; then
         echo "No flags provided"
-        echo "$(who -m | awk '{print $1;}')"
+        # echo "$(who -m | awk '{print $1;}')"
+        config_dir
         # install_app
     else
         if [ -n "$INSTALL_ALL" ]; then
@@ -124,13 +127,13 @@ main()
 config_dir()
 {
     # Remove unused folders
-    rm -rf ~/Templates
-    rm -rf ~/Examples
+    rm -rf /home/$CUR_USER/Templates
+    rm -rf /home/$CUR_USER/Examples
     sudo apt-get purge wolfram-engine -y
-    mkdir -p ~/Documents/git
-    mkdir -p ~/Downloads
-    mkdir -p ~/Pictures
-    mkdir -p ~/Videos
+    mkdir -p /home/$CUR_USER/Documents/git
+    mkdir -p /home/$CUR_USER/Downloads
+    mkdir -p /home/$CUR_USER/Pictures
+    mkdir -p /home/$CUR_USER/Videos
 }
 
 install_app()
