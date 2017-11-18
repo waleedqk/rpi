@@ -106,7 +106,7 @@ main()
         if [ -n "$INSTALL_ALL" ]; then
             echo "Fresh install"
             config_dir
-            install_app
+            # install_app
             configure_misc
             git_config
             update_config
