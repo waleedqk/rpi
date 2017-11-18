@@ -66,6 +66,27 @@ APP_LIST=(
     youtube-dl
 )
 
+NO_FLAGS=true
+
+read_args()
+{
+    APPS_INSTALL=
+    INSTALL_ALL=
+    for arg in "$@"; do
+        case $arg in
+            -a)
+                NO_FLAGS=false
+                APPS_INSTALL="true";;
+            -i)
+                NO_FLAGS=false
+                INSTALL_ALL="true";;
+            *)
+                echo "Usage: sudo script_name.bash -a | -i "
+                NO_FLAGS="true";;                
+        esac
+    done
+}
+
 apt_update()
 {
     echo "update..."
@@ -78,25 +99,44 @@ main()
     apt-get upgrade
     clear
 
-    if [[ -z $1 ]]; then
-        echo "No command provided"
-        install_app
+    if [ "$NO_FLAGS" = true ]; then
+        echo "No flags provided"
+        # install_app
     else
-        case "$1" in
-            "install")
-                install_app
-                ;;
-            "all")
-                config_dir
-                install_app
-                configure_misc
-                git_config
-                update_config
-                setup_vim
-                permissions
-                ;;
-        esac
+        if [ -n "$INSTALL_ALL" ]; then
+            echo "Fresh install"
+            # config_dir
+            # install_app
+            # configure_misc
+            # git_config
+            # update_config
+            # setup_vim
+            # permissions     
+        elif   [ -n "$APPS_INSTALL" ]; then
+            echo "Install apps only"
+            # install_app
+        fi
     fi
+
+    # if [[ -z $1 ]]; then
+    #     echo "No command provided"
+    #     install_app
+    # else
+    #     case "$1" in
+    #         "install")
+    #             install_app
+    #             ;;
+    #         "all")
+    #             config_dir
+    #             install_app
+    #             configure_misc
+    #             git_config
+    #             update_config
+    #             setup_vim
+    #             permissions
+    #             ;;
+    #     esac
+    # fi
 }
 
 config_dir()
@@ -172,4 +212,5 @@ install_webserver()
     sudo apt-get install apache2 -y
 }
 
-main "$@"
+read_args "$@"
+main
