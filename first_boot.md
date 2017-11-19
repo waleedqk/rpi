@@ -83,6 +83,18 @@ and change the pi entry (or whichever usernames have superuser rights) to
 
     pi ALL=(ALL) PASSWD: ALL
 
+**Enable cron log**
+
+    sudo vim /etc/rsyslog.conf
+
+and uncomment the line
+
+```# cron.*                          /var/log/cron.log```
+
+After that, you need to restart rsyslog via
+
+    /etc/init.d/rsyslog restart
+
 **Change hostname**
 
     sudo vim /etc/hostname
