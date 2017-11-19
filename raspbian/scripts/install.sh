@@ -193,7 +193,7 @@ install_webserver()
 {
     # https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md
     sudo apt-get install apache2 -y
-    sudo apt-get install php7.0 mysql-server -y
+    sudo apt-get install php7.0 php7.0-mysql mysql-server -y
 }
 
 read_args "$@"
