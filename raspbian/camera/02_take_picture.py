@@ -4,5 +4,5 @@ from time import sleep
 camera = PiCamera()
 camera.start_preview()
 sleep(5)
-camera.capture('/home/odin/Pictures/image.jpg')
+camera.capture('~/Pictures/image.jpg')
 camera.stop_preview()
