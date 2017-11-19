@@ -64,7 +64,7 @@ scan_ssid=1
 **Allow user to run sudo without password**
 
     sudo visudo
-    <username>    ALL=(ALL:ALL) ALL 
+    <username> ALL=(ALL) NOPASSWD: ALL
 
 **Remove pi user**
 

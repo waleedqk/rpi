@@ -30,6 +30,7 @@ APP_LIST=(
     gzip
     htop
     libav-tools #avconv
+    mailutils
     mplayer2
     netcat
     nmap
