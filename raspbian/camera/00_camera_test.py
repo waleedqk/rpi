@@ -11,7 +11,7 @@ camera = picamera.PiCamera()
 # camera.vflip = True
 
 # take a picture
-camera.capture('image.jpg')
+camera.capture('~/Pictures/image.jpg')
 
 # Preview the camera feed on screen
 camera.start_preview()
