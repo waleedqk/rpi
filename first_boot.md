@@ -60,7 +60,14 @@ scan_ssid=1
     sudo passwd username
     sudo adduser username sudo
     sudo reboot
+
+**Allow user to run sudo without password**
+
     sudo visudo
+    <username>    ALL=(ALL:ALL) ALL 
+
+**Remove pi user**
+
     sudo deluser pi
     sudo deluser -remove-home pi
 
