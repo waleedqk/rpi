@@ -192,6 +192,7 @@ permissions()
 install_webserver()
 {
     # https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md
+    # https://diyhacking.com/raspberry-pi-web-server/
     sudo apt-get install apache2 -y
     sudo apt-get install php7.0 php7.0-mysql mysql-server mysql-client -y
     sudo apt-get install phpmyadmin -y

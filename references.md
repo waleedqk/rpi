@@ -39,3 +39,7 @@
 **Screensaver**
 
     https://www.raspberrypi.org/documentation/configuration/screensaver.md
+
+**X11 Display**
+
+    http://www.linuxcircle.com/2015/05/14/view-image-on-your-pi-remotely-over-ssh/
