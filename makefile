@@ -7,7 +7,7 @@ pull:
 	git pull --all
 
 push: 
-	git add *
+	git add * .gitignore
 	git commit -m "Commit"
 	git push origin master	
 
