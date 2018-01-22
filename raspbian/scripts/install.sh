@@ -69,6 +69,15 @@ APP_LIST=(
     youtube-dl
 )
 
+# PIP3 LIST
+PIP3_LIST=(
+	pytube
+)
+
+APP3_LIST=(
+	python3-nmap
+)
+
 NO_FLAGS=true
 
 read_args()
@@ -135,10 +144,38 @@ config_dir()
     mkdir -p $CUR_USER/Videos
 }
 
+pip_update()
+{
+	echo "update..."
+	apt-get update
+	clear
+	echo "update pip..."
+	sudo -H pip3 install --upgrade pip
+	sudo -H pip2 install --upgrade pip
+}
+
+upgrade_modules()
+{
+	echo "Upgrading modules ..."
+	sudo pip3 install --upgrade "${PIP3_LIST[@]}"
+}
+
 install_app()
 {
     echo "Installing apps now ..."
     sudo apt-get -y install "${APP_LIST[@]}"
+
+
+    # Python 
+    pip_update
+
+    echo "Installing apps now ..."
+	sudo apt-get -y install "${APP3_LIST[@]}"
+
+	echo "Installing pip3 apps"	
+	sudo -H pip3 install "${PIP3_LIST[@]}"
+
+	upgrade_modules
 }
 
 update_config()
