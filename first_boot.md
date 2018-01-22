@@ -28,6 +28,10 @@ scan_ssid=1
 
 # First boot
 
+**Search for all Pi's on the network**
+
+    arp -na | grep -i b8:27:eb
+
 **SSH DNS Spoofing**
 
     ssh-keygen -f "/home/wqkhan/.ssh/known_hosts" -R 192.168.0.27
