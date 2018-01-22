@@ -16,24 +16,14 @@ Now reboot the pi.
 
 You need to edit ```/etc/modules-load.d/fbtft.conf```
 
-    sudo nano /etc/modules-load.d/fbtft.conf
-
-now add this to the file:
-
-```
-spi-bcm2835 fbtft_device
-```
+    sudo echo "spi-bcm2835 fbtft_device" >> /etc/modules-load.d/fbtft.conf
 
 Next edit /etc/modprobe.d/fbtft.conf
 
-    sudo nano /etc/modprobe.d/fbtft.conf
-
-and add this to the file:
-
+    sudo echo "options fbtft_device name=adafruit22a gpio=reset:25,dc:24,led:23 rotate=270 txbuflen=32768 fps=60 speed=80000000" >> /etc/modprobe.d/fbtft.conf
 ```
-options fbtft_device name=adafruit22a gpio=reset:25,dc:24,led:23 rotate=270 txbuflen=32768 fps=60 speed=80000000
-sace the file and reboot the pi. The screen should now be setup as /dev/fb1. You will see that in the program
-```
+
+save the file and reboot the pi. The screen should now be setup as /dev/fb1. You will see that in the program
 
 
 ## Setup the Audio:
