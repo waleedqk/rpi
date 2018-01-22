@@ -21,12 +21,10 @@ You need to edit ```/etc/modules-load.d/fbtft.conf```
 Next edit /etc/modprobe.d/fbtft.conf
 
     sudo echo "options fbtft_device name=adafruit22a gpio=reset:25,dc:24,led:23 rotate=270 txbuflen=32768 fps=60 speed=80000000" >> /etc/modprobe.d/fbtft.conf
-```
 
 save the file and reboot the pi. The screen should now be setup as /dev/fb1. You will see that in the program
 
-
-## Setup the Audio:
+### Setup the Audio:
 
 Adafruit Tutorial
 https://learn.adafruit.com/adafruit-max98357-i2s-class-d-mono-amp/raspberry-pi-usage
@@ -41,11 +39,11 @@ once its installed, reboot. Then run the same command again to test if the speak
 
 You will need to install a python library PyTube and a program mplayer.
 
-**install PYTUBE**
+**Install PYTUBE**
 
     sudo pip3 install pytube
 
-**install mplayer:**
+**Install mplayer:**
 
     sudo apt-get install mplayer
 
@@ -56,3 +54,31 @@ now test to see if your screen is working.
 
 If you see a video playing, congrats! If not, check your wiring and check the code and the FBTFT documentation.
 https://github.com/notro/fbtft/wiki#install
+
+
+## Adafruit
+
+https://learn.adafruit.com/user-space-spi-tft-python-library-ili9341-2-8?view=all
+
+**Install dependencies**
+
+    sudo apt-get update
+    sudo apt-get install build-essential python-dev python-smbus python-pip python-imaging python-numpy git
+    sudo pip install RPi.GPIO
+
+**Install TFT**
+
+    cd ~
+    git clone https://github.com/adafruit/Adafruit_Python_ILI9341.git
+    cd Adafruit_Python_ILI9341
+    sudo python setup.py install
+
+
+
+
+## The SPI bus is available on the P1 Header:
+
+    MOSI    P1-19
+    MISO    P1-21
+    SCLK    P1-23   P1-24    CE0
+    GND     P1-25   P1-26    CE1
