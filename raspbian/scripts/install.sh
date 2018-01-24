@@ -31,6 +31,7 @@ APP_LIST=(
     htop
     libav-tools #avconv
     mailutils
+    mplayer
     mplayer2
     netcat
     nmap
