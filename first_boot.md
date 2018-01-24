@@ -87,6 +87,15 @@ and change the pi entry (or whichever usernames have superuser rights) to
 
     pi ALL=(ALL) PASSWD: ALL
 
+**Git clone**
+
+    mkdir -p $HOME/Documents/git
+    cd $HOME/Documents/git
+    git clone git@github.com:wqkhan/rpi.git
+    git clone https://github.com/wqkhan/rpi.git
+    cd rpi
+    sudo bash raspbian/scripts/install.sh -i
+
 **Enable cron log**
 
     sudo vim /etc/rsyslog.conf
@@ -106,12 +115,3 @@ After that, you need to restart rsyslog via
     sudo /etc/init.d/hostname.sh
     sudo reboot
     hostname
-
-**Git clone**
-
-    mkdir -p $HOME/Documents/git
-    cd $HOME/Documents/git
-    git clone git@github.com:wqkhan/rpi.git
-    git clone https://github.com/wqkhan/rpi.git
-    cd rpi
-    sudo bash raspbian/scripts/install.sh -i
