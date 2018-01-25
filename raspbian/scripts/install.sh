@@ -143,6 +143,7 @@ config_dir()
     mkdir -p $CUR_USER/Downloads
     mkdir -p $CUR_USER/Pictures
     mkdir -p $CUR_USER/Videos
+    mkdir -p $CUR_USER/Music
 }
 
 pip_update()
