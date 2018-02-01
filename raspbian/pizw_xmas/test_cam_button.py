@@ -14,7 +14,7 @@ camera = picamera.PiCamera()
 
 # take a picture
 image_name = 'image_'+str(getthetime)+'.jpg'
-camera.capture('~/Pictures/'+image_name)
+camera.capture(os.environ['HOME'] + '/Pictures/'+image_name)
 
 
 os.system('sudo fbi -T 2 -d /dev/fb1 -noverbose -a ~/Pictures/'+image_name)
