@@ -38,6 +38,7 @@ if __name__ == "__main__":
         input_state = GPIO.input(CAM_PIN)
         if input_state == False:
             print('Button Pressed')
+            take_pic()
             time.sleep(0.2)
 
     camera.close()
