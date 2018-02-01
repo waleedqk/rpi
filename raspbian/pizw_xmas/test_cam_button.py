@@ -17,4 +17,6 @@ image_name = 'image_'+str(getthetime)+'.jpg'
 camera.capture(os.environ['HOME'] + '/Pictures/'+image_name)
 
 
+camera.close()
+
 os.system('sudo fbi -T 2 -d /dev/fb1 -noverbose -a ~/Pictures/'+image_name)
