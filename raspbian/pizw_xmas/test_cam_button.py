@@ -4,10 +4,11 @@ import picamera
 from time import sleep
 
 import time, os, sys
-import getpass
+import getpass, socket
 
-# The current user of the program
+# The current user and hostname of the program
 cur_user = getpass.getuser()
+hostname = socket.gethostname()
 
 # Get the current time
 getthetime = time.strftime("%Y%m%d-%H%M%S")
