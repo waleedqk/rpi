@@ -4,6 +4,10 @@ import picamera
 from time import sleep
 
 import time, os, sys
+import getpass
+
+# The current user of the program
+cur_user = getpass.getuser()
 
 # Get the current time
 getthetime = time.strftime("%Y%m%d-%H%M%S")
@@ -14,9 +18,9 @@ camera = picamera.PiCamera()
 
 # take a picture
 image_name = 'image_'+str(getthetime)+'.jpg'
-camera.capture(os.environ['HOME'] + '/Pictures/'+image_name)
+camera.capture('/home/'+cur_user+'/Pictures/'+image_name)
 
 
 camera.close()
 
-os.system('sudo fbi -T 2 -d /dev/fb1 -noverbose -a ~/Pictures/'+image_name)
+os.system('sudo fbi -T 2 -d /dev/fb1 -noverbose -a /home/'+cur_user+'/Pictures/'+image_name)
