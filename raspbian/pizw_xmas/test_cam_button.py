@@ -24,4 +24,4 @@ camera.capture('/home/'+cur_user+'/Pictures/'+image_name)
 
 camera.close()
 
-os.system('sudo fbi -T 2 -d /dev/fb1 -noverbose -a /home/'+cur_user+'/Pictures/'+image_name)
+os.system('fbi -T 2 -d /dev/fb1 -noverbose -a /home/'+cur_user+'/Pictures/'+image_name)
