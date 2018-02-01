@@ -19,7 +19,7 @@ while True:
             time.sleep(0.2)
 
         pressed_time=time.time()-pressed_time
-        print ("Button pressed for: {}"format(pressed_time))
+        print ("Button pressed for: {}".format(pressed_time))
         if pressed_time<longpress_threshold:
             print("Below threshold")
         else:
