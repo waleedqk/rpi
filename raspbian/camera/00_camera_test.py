@@ -3,8 +3,14 @@
 import picamera
 from time import sleep
 
+import time, os, sys
+
 # create an instance of the PiCamera class
 camera = picamera.PiCamera()
+
+
+# Get the current time
+getthetime = time.strftime("%Y%m%d-%H%M%S")
 
 # with the raspistill command, you can apply a horizontal and vertical flip 
 # camera.hflip = True
