@@ -53,3 +53,5 @@ camera.stop_preview()
 # camera.start_recording('video.h264')
 # sleep(5)
 # camera.stop_recording()
+
+camera.close()
