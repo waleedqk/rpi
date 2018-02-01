@@ -11,6 +11,7 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 CAM_PIN = 26
+GPIO.setup(CAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # The current user and hostname of the program
 cur_user = getpass.getuser()
