@@ -85,7 +85,10 @@ scan_ssid=1
 
 and change the pi entry (or whichever usernames have superuser rights) to
 
-    pi ALL=(ALL) PASSWD: ALL
+    username ALL=(ALL) PASSWD: ALL
+
+    # allow all members of a specific group to use sudo without a password
+    %username ALL=(ALL) NOPASSWD: ALL
 
 **Git clone**
 
