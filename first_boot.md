@@ -26,6 +26,10 @@ scan_ssid=1
 }
 ```
 
+# Add ssh keys
+
+    ssh-copy-id -i  ~/.ssh/id_rsa.pub pi@192.168.0.29
+
 # First boot
 
 **Search for all Pi's on the network**
