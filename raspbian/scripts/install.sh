@@ -36,6 +36,7 @@ APP_LIST=(
     curl
     espeak
     fail2ban # blocks suspicious requests coming from the internet
+    fbi # Display Images on Raspbian Command
     feh
     g++
     gcc
