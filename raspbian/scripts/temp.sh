@@ -136,6 +136,56 @@ install_python_modules()
 }
 
 
+wireshark_config()
+{
+    echo "Give user privelages for wireshark"
+    sudo dpkg-reconfigure wireshark-common
+    echo "a wireshark group been created in /etc/gshadow. so add user to it"
+    sudo gpasswd -a $SUDO_USER wireshark
+}
+
+
+git_config() {
+    sudo -u ${SUDO_USER} git config --global user.name "Waleed Khan"
+    sudo -u ${SUDO_USER} git config --global user.email "wqkhan@uwaterloo.ca"
+    #git config --global push.default matching
+}
+
+
+vim_config()
+{
+    BUNDLE="$MYHOME/.vim/bundle"
+    if [ ! -d "$BUNDLE/Vundle.vim" ]; then
+        sudo -u ${SUDO_USER} mkdir -p "$BUNDLE"
+        sudo -u ${SUDO_USER} git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLE/Vundle.vim"
+    fi
+
+    # Update existing (or new) installation
+    cd "$BUNDLE/Vundle.vim"
+    sudo -u ${SUDO_USER} git pull -q
+    # In order to update Vundle.vim and all your plugins directly from the command line you can use a command like this:
+    sudo -u ${SUDO_USER} vim -c VundleInstall -c quitall
+
+    echo "Vim setup updated."
+
+    if [ -f $MYHOME"/.vimrc" ] ; then
+        rm $MYHOME"/.vimrc"
+    fi
+    sudo -u ${SUDO_USER} cp $REPO_DIR"/config/vim/vimrc" $MYHOME"/.vimrc"
+}
+
+
+tmux_config()
+{
+
+    if [ -f $MYHOME"/.tmux.conf" ] ; then
+        rm $MYHOME"/.tmux.conf"
+    fi
+    sudo -u ${SUDO_USER} cp $REPO_DIR"/config/tmux/tmux.conf" $MYHOME"/.tmux.conf"
+}
+
+
+
 main()
 {
     echo "Starting install procedure..."
@@ -152,8 +202,12 @@ main()
     if [ ! -z "${NEW_INSTALL}" ]; then
         echo "Initializing a fresh install" 
         # config_dir
-        install_app
-        install_python_modules
+        # install_app
+        # install_python_modules
+        git_config
+        tmux_config
+        vim_config
+        wireshark_config
     fi
 
     if [ ! -z "${CONFIG}" ]; then
