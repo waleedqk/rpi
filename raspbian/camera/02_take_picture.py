@@ -14,7 +14,7 @@ camera = PiCamera()
 camera.start_preview()
 sleep(5)
 
-datetime_now = datetime.datetime.now().strftime("%y_%m_%d__%M-%H-%S")
+datetime_now = datetime.datetime.now().strftime("%Y_%m_%d__%H-%M-%S")
 image = "{}image_{}.jpg".format(basedir, datetime_now)
 
 camera.capture(image)
