@@ -109,7 +109,7 @@ config_dir()
 install_app()
 {
     echo "Installing apps now ..."
-    sudo apt -y install "${APP_LIST[@]}"
+    sudo apt-get -y install "${APP_LIST[@]}"
 }
 
 
