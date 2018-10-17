@@ -31,17 +31,31 @@ done
 
 # APP LIST
 APP_LIST=(
+    build-essential 
     cmake
     cron
     curl
+    dconf-editor
     espeak
+    exfat-fuse
+    exfat-utils
+    expect
     fail2ban # blocks suspicious requests coming from the internet
+    fbi
     feh
     g++
     gcc
+    gnome-schedule
     git
+    gksu
+    gparted
+    gzip
     htop
     libav-tools #avconv
+    mailutils
+    mpg123
+    mplayer
+    mplayer2
     netcat
     nmap
     npm
@@ -49,12 +63,25 @@ APP_LIST=(
     omxplayer
     openssh-client
     openssh-server
+    openvpn    
     packeth
+    pavucontrol
+    pkg-config
+    pure-ftpd
+    python-dev
+    python3-dev
+    python3-gpiozero
+    python-picamera 
+    python3-picamera
+    python-pip
+    python3-pip
     screen
     sqlite3
     ssh
     sshfs
     tcpdump
+    telnet
+    tree
     tmux
     unzip
     vim
@@ -201,9 +228,9 @@ main()
 
     if [ ! -z "${NEW_INSTALL}" ]; then
         echo "Initializing a fresh install" 
-        # config_dir
-        # install_app
-        # install_python_modules
+        config_dir
+        install_app
+        install_python_modules
         git_config
         tmux_config
         vim_config

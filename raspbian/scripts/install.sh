@@ -5,35 +5,43 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
-CUR_USER="/home/$(who -m | awk '{print $1;}')"
+MYHOME="/home/${SUDO_USER}"
+
+OPTS=`getopt -o cnth --long config,new-install,test,help -n 'parse-options' -- "$@"`
+
+usage() { echo "Error - Usage: $0 [-c || --config] [-n || --new-install] [-t || --test] [-h || --help]" 1>&2; exit 1; }
+
+
+if [ $? != 0 ] ; then echo "Failed parsing options." usage >&2 ; exit 1 ; fi
+
+echo "$OPTS"
+eval set -- "$OPTS"
+
+while true; do
+  case "$1" in
+    -c | --config )         CONFIG=true;        shift ;;
+    -n | --new-install )    NEW_INSTALL=true;   shift ;;
+    -t | --test )           TEST=true;          shift ;;
+    -h | --help )           HELP=true;          shift ;;
+    -- ) shift; break ;;
+    * ) break ;;
+  esac
+done
+
 
 # APP LIST
 APP_LIST=(
-    build-essential 
     cmake
     cron
     curl
-    dconf-editor
     espeak
-    exfat-fuse
-    exfat-utils
-    expect
     fail2ban # blocks suspicious requests coming from the internet
-    fbi
     feh
     g++
     gcc
-    gnome-schedule
     git
-    gksu
-    gparted
-    gzip
     htop
     libav-tools #avconv
-    mailutils
-    mpg123
-    mplayer
-    mplayer2
     netcat
     nmap
     npm
@@ -41,25 +49,12 @@ APP_LIST=(
     omxplayer
     openssh-client
     openssh-server
-    openvpn    
     packeth
-    pavucontrol
-    pkg-config
-    pure-ftpd
-    python-dev
-    python3-dev
-    python3-gpiozero
-    python-picamera 
-    python3-picamera
-    python-pip
-    python3-pip
     screen
     sqlite3
     ssh
     sshfs
     tcpdump
-    telnet
-    tree
     tmux
     unzip
     vim
@@ -71,81 +66,51 @@ APP_LIST=(
     youtube-dl
 )
 
+
 # PIP3 LIST
 PIP3_LIST=(
 	pytube
 )
 
 APP3_LIST=(
+    python-dev
+    python3-dev
+    python3-gpiozero
+    python-picamera 
+    python3-picamera
+    python-pip
+    python3-pip
 	python3-nmap
 )
 
-NO_FLAGS=true
-
-read_args()
-{
-    APPS_INSTALL=
-    INSTALL_ALL=
-    for arg in "$@"; do
-        case $arg in
-            -a)
-                NO_FLAGS=false
-                APPS_INSTALL="true";;
-            -i)
-                NO_FLAGS=false
-                INSTALL_ALL="true";;
-            *)
-                echo "Usage: sudo script_name.bash -a | -i "
-                NO_FLAGS="true";;                
-        esac
-    done
-}
-
+# Update the system
 apt_update()
 {
-    echo "update..."
+    echo "Update list of available packages"
     apt-get update
 }
 
-main()
-{
-    apt_update
-    apt-get upgrade
-    clear
-
-    if [ "$NO_FLAGS" = true ]; then
-        echo "No flags provided"
-        install_app
-    else
-        if [ -n "$INSTALL_ALL" ]; then
-            echo "Fresh install"
-            config_dir
-            install_app
-            configure_misc
-            git_config
-            update_config
-            setup_vim
-            permissions     
-        elif   [ -n "$APPS_INSTALL" ]; then
-            echo "Install apps only"
-            install_app
-        fi
-    fi
-
-}
 
 config_dir()
 {
     # Remove unused folders
-    rm -rf $CUR_USER/Templates
-    rm -rf $CUR_USER/Examples
+    rm -rf $MYHOME/Templates
+    rm -rf $MYHOME/Examples
     sudo apt-get purge wolfram-engine -y
-    mkdir -p $CUR_USER/Documents/git
-    mkdir -p $CUR_USER/Downloads
-    mkdir -p $CUR_USER/Pictures
-    mkdir -p $CUR_USER/Videos
-    mkdir -p $CUR_USER/Music
+    mkdir -p $MYHOME/Documents/git
+    mkdir -p $MYHOME/Downloads
+    mkdir -p $MYHOME/Pictures
+    mkdir -p $MYHOME/Videos
+    mkdir -p $MYHOME/Music
 }
+
+
+install_app()
+{
+    echo "Installing apps now ..."
+    sudo apt -y install "${APP_LIST[@]}"
+}
+
 
 pip_update()
 {
@@ -157,88 +122,103 @@ pip_update()
 	sudo -H pip2 install --upgrade pip
 }
 
-upgrade_modules()
+install_python_modules()
 {
-	echo "Upgrading modules ..."
-	sudo pip3 install --upgrade "${PIP3_LIST[@]}"
-}
-
-install_app()
-{
-    echo "Installing apps now ..."
-    sudo apt-get -y install "${APP_LIST[@]}"
-
-
-    # Python 
     pip_update
 
-    echo "Installing apps now ..."
+     echo "Installing python apps now ..."
 	sudo apt-get -y install "${APP3_LIST[@]}"
 
 	echo "Installing pip3 apps"	
 	sudo -H pip3 install "${PIP3_LIST[@]}"
 
-	upgrade_modules
+	echo "Upgrading modules ..."
+	sudo pip3 install --upgrade "${PIP3_LIST[@]}"
 }
 
-update_config()
- {
-     if [ -f $CUR_USER"/.vimrc" ] ; then
-         rm $CUR_USER"/.vimrc"
-     fi
-     cp $REPO_DIR"/config/vim/vimrc" $CUR_USER"/.vimrc"
- 
-     if [ -f $CUR_USER"/.tmux.conf" ] ; then
-         rm $CUR_USER"/.tmux.conf"
-     fi
-     cp $REPO_DIR"/config/tmux/tmux.conf" $CUR_USER"/.tmux.conf"
- }
 
-setup_vim()
-{
-    BUNDLE="$CUR_USER/.vim/bundle"
-    if [ ! -d "$BUNDLE/Vundle.vim" ]; then
-        mkdir -p "$BUNDLE"
-        git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLE/Vundle.vim"
-    fi
-
-    # Update existing (or new) installation
-    cd "$BUNDLE/Vundle.vim"
-    git pull -q
-    # In order to update Vundle.vim and all your plugins directly from the command line you can use a command like this:
-    vim -c VundleInstall -c quitall
-
-    echo "Vim setup updated."
-}
-
-git_config() {
-    git config --global user.name "Waleed Khan"
-    git config --global user.email "wqkhan@uwaterloo.ca"
-    #git config --global push.default matching
-}
-
-configure_misc()
+wireshark_config()
 {
     echo "Give user privelages for wireshark"
     sudo dpkg-reconfigure wireshark-common
     echo "a wireshark group been created in /etc/gshadow. so add user to it"
-    sudo gpasswd -a $USER wireshark
+    sudo gpasswd -a $SUDO_USER wireshark
 }
 
-permissions()
+
+git_config() {
+    sudo -u ${SUDO_USER} git config --global user.name "Waleed Khan"
+    sudo -u ${SUDO_USER} git config --global user.email "wqkhan@uwaterloo.ca"
+    #git config --global push.default matching
+}
+
+
+vim_config()
 {
-    sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $(whoami)
+    BUNDLE="$MYHOME/.vim/bundle"
+    if [ ! -d "$BUNDLE/Vundle.vim" ]; then
+        sudo -u ${SUDO_USER} mkdir -p "$BUNDLE"
+        sudo -u ${SUDO_USER} git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLE/Vundle.vim"
+    fi
+
+    # Update existing (or new) installation
+    cd "$BUNDLE/Vundle.vim"
+    sudo -u ${SUDO_USER} git pull -q
+    # In order to update Vundle.vim and all your plugins directly from the command line you can use a command like this:
+    sudo -u ${SUDO_USER} vim -c VundleInstall -c quitall
+
+    echo "Vim setup updated."
+
+    if [ -f $MYHOME"/.vimrc" ] ; then
+        rm $MYHOME"/.vimrc"
+    fi
+    sudo -u ${SUDO_USER} cp $REPO_DIR"/config/vim/vimrc" $MYHOME"/.vimrc"
 }
 
-install_webserver()
+
+tmux_config()
 {
-    # https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md
-    # https://diyhacking.com/raspberry-pi-web-server/
-    sudo apt-get install apache2 -y
-    sudo apt-get install php7.0 php7.0-mysql mysql-server mysql-client -y
-    sudo apt-get install phpmyadmin -y
-    # /etc/init.d/apache2 restart
+
+    if [ -f $MYHOME"/.tmux.conf" ] ; then
+        rm $MYHOME"/.tmux.conf"
+    fi
+    sudo -u ${SUDO_USER} cp $REPO_DIR"/config/tmux/tmux.conf" $MYHOME"/.tmux.conf"
 }
 
-read_args "$@"
+
+
+main()
+{
+    echo "Starting install procedure..."
+
+    # -z string True if the string is null (an empty string)
+    if [ ! -z "${HELP}" ]; then
+        echo "Requesting help: "
+        usage
+    fi
+
+    apt_update
+    clear
+
+    if [ ! -z "${NEW_INSTALL}" ]; then
+        echo "Initializing a fresh install" 
+        config_dir
+        install_app
+        install_python_modules
+        git_config
+        tmux_config
+        vim_config
+        wireshark_config
+    fi
+
+    if [ ! -z "${CONFIG}" ]; then
+        echo "Initializing config" 
+    fi
+
+    if [ ! -z "${TEST}" ]; then
+        echo "Initializing test" 
+    fi
+}
+
+
 main
