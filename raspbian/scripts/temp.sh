@@ -28,6 +28,60 @@ while true; do
   esac
 done
 
+
+# APP LIST
+APP_LIST=(
+    cmake
+    cron
+    curl
+    espeak
+    fail2ban # blocks suspicious requests coming from the internet
+    feh
+    g++
+    gcc
+    git
+    htop
+    libav-tools #avconv
+    netcat
+    nmap
+    npm
+    ntp
+    omxplayer
+    openssh-client
+    openssh-server
+    packeth
+    screen
+    sqlite3
+    ssh
+    sshfs
+    tcpdump
+    tmux
+    unzip
+    vim
+    vlc
+    wget
+    wireshark
+    xclip
+    xrdp # remote desktop application
+    youtube-dl
+)
+
+# PIP3 LIST
+PIP3_LIST=(
+	pytube
+)
+
+APP3_LIST=(
+    python-dev
+    python3-dev
+    python3-gpiozero
+    python-picamera 
+    python3-picamera
+    python-pip
+    python3-pip
+	python3-nmap
+)
+
 # Update the system
 apt_update()
 {
@@ -49,6 +103,39 @@ config_dir()
     mkdir -p $MYHOME/Music
 }
 
+
+install_app()
+{
+    echo "Installing apps now ..."
+    sudo apt -y install "${APP_LIST[@]}"
+}
+
+
+pip_update()
+{
+	echo "update..."
+	apt-get update
+	clear
+	echo "update pip..."
+	sudo -H pip3 install --upgrade pip
+	sudo -H pip2 install --upgrade pip
+}
+
+install_python_modules()
+{
+    pip_update
+
+     echo "Installing python apps now ..."
+	sudo apt-get -y install "${APP3_LIST[@]}"
+
+	echo "Installing pip3 apps"	
+	sudo -H pip3 install "${PIP3_LIST[@]}"
+
+	echo "Upgrading modules ..."
+	sudo pip3 install --upgrade "${PIP3_LIST[@]}"
+}
+
+
 main()
 {
     echo "Starting install procedure..."
@@ -64,7 +151,9 @@ main()
 
     if [ ! -z "${NEW_INSTALL}" ]; then
         echo "Initializing a fresh install" 
-        config_dir
+        # config_dir
+        install_app
+        install_python_modules
     fi
 
     if [ ! -z "${CONFIG}" ]; then
