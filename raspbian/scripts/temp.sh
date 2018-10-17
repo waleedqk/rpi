@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 set -e
@@ -6,48 +5,52 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
-config_dir()
+MYHOME="/home/${SUDO_USER}"
+
+OPTS=`getopt -o cnth --long config,new-install,test,help -n 'parse-options' -- "$@"`
+
+usage() { echo "Error - Usage: $0 [-c || --config] [-n || --new-install] [-t || --test] [-h || --help]" 1>&2; exit 1; }
+
+
+if [ $? != 0 ] ; then echo "Failed parsing options." usage >&2 ; exit 1 ; fi
+
+echo "$OPTS"
+eval set -- "$OPTS"
+
+while true; do
+  case "$1" in
+    -c | --config )         CONFIG=true;        shift ;;
+    -n | --new-install )    NEW_INSTALL=true;   shift ;;
+    -t | --test )           TEST=true;          shift ;;
+    -h | --help )           HELP=true;          shift ;;
+    -- ) shift; break ;;
+    * ) break ;;
+  esac
+done
+
+# Update the system
+apt_update()
 {
-    # Remove unused folders
-    rm -rf ~/Templates
-    rm -rf ~/Examples
-    sudo apt-get purge wolfram-engine -y
-    mkdir -p ~/Documents/git
-    mkdir -p ~/Downloads
-    mkdir -p ~/Pictures
-    mkdir -p ~/Videos
+    echo "Update list of available packages"
+    apt-get update
 }
 
-update_config()
- {
-     if [ -f $HOME"/.vimrc" ] ; then
-         rm $HOME"/.vimrc"
-     fi
-     cp $REPO_DIR"/config/vim/vimrc" $HOME"/.vimrc"
- 
-     if [ -f $HOME"/.tmux.conf" ] ; then
-         rm $HOME"/.tmux.conf"
-     fi
-     cp $REPO_DIR"/config/tmux/tmux.conf" $HOME"/.tmux.conf"
- }
- 
- setup_vim()
+
+main()
 {
-    BUNDLE="$HOME/.vim/bundle"
-    if [ ! -d "$BUNDLE/Vundle.vim" ]; then
-        mkdir -p "$BUNDLE"
-        git clone https://github.com/VundleVim/Vundle.vim.git "$BUNDLE/Vundle.vim"
+    echo "Starting install procedure..."
+
+    # -z string True if the string is null (an empty string)
+    if [ ! -z "${HELP}" ]; then
+        echo "Requesting help: "
+        usage
     fi
 
-    # Update existing (or new) installation
-    cd "$BUNDLE/Vundle.vim"
-    git pull -q
-    # In order to update Vundle.vim and all your plugins directly from the command line you can use a command like this:
-    vim -c VundleInstall -c quitall
+    apt_update
+    clear
 
-    echo "Vim setup updated."
+
 }
 
-config_dir
-update_config
-setup_vim
+
+main
