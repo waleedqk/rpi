@@ -64,6 +64,7 @@ main()
 
     if [ ! -z "${NEW_INSTALL}" ]; then
         echo "Initializing a fresh install" 
+        config_dir
     fi
 
     if [ ! -z "${CONFIG}" ]; then
