@@ -36,6 +36,19 @@ apt_update()
 }
 
 
+config_dir()
+{
+    # Remove unused folders
+    rm -rf $MYHOME/Templates
+    rm -rf $MYHOME/Examples
+    sudo apt-get purge wolfram-engine -y
+    mkdir -p $MYHOME/Documents/git
+    mkdir -p $MYHOME/Downloads
+    mkdir -p $MYHOME/Pictures
+    mkdir -p $MYHOME/Videos
+    mkdir -p $MYHOME/Music
+}
+
 main()
 {
     echo "Starting install procedure..."
@@ -49,7 +62,17 @@ main()
     apt_update
     clear
 
+    if [ ! -z "${NEW_INSTALL}" ]; then
+        echo "Initializing a fresh install" 
+    fi
 
+    if [ ! -z "${CONFIG}" ]; then
+        echo "Initializing config" 
+    fi
+
+    if [ ! -z "${TEST}" ]; then
+        echo "Initializing test" 
+    fi
 }
 
 
