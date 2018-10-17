@@ -14,7 +14,7 @@ camera = PiCamera()
 camera.start_preview()
 
 for i in range(5):
-    sleep(5)
+    sleep(2)
     datetime_now = datetime.datetime.now().strftime("%Y_%m_%d__%H-%M-%S")
     image = "{}image_{}_{}.jpg".format(basedir, str(i).zfill(2), datetime_now)
     
