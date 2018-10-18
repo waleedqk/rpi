@@ -17,3 +17,12 @@ Notice the capital X!
     feh /path/picture.jpg
 
 Note: loading is not superfast, wait patiently.
+
+
+# Convert Images to gif
+
+    convert -delay 20 -loop 0 *.jpg myimage.gif
+
+**Reference**
+
+https://askubuntu.com/questions/648244/how-to-create-a-gif-from-the-command-line
