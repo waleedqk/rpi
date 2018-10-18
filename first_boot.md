@@ -26,22 +26,6 @@ scan_ssid=1
 }
 ```
 
-# PASSWORDLESS SSH ACCESS
-
-**Check ssh keys**
-
-    ls ~/.ssh/
-
-**Create new keys**
-
-    ssh-keygen -t rsa -b 4096 -C "waleedqk@gmail.com"
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_rsa
-
-# Add ssh keys
-
-    ssh-copy-id -i ~/.ssh/id_rsa.pub pi@192.168.0.29
-
 # First boot
 
 **Search for all Pi's on the network**
