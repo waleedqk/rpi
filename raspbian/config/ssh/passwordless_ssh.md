@@ -16,7 +16,7 @@ Generate a pair of public keys from the host from where you will log into the ra
 
 Use SSH from server (host) and upload new generated public key on server rasp_pi under pi‘s .ssh directory as a file name authorized_keys.
 
-    cat .ssh/id_ras_pi.pub | ssh pi@raspberry.local 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
+    cat ~/.ssh/id_ras_pi.pub | ssh pi@raspberry.local 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
 
 or alternatively 
 
