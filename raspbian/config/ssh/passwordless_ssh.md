@@ -8,6 +8,8 @@
 
 Generate a pair of public keys from the host from where you will log into the rasp_pi:
 
+    mkdir -p ~/.ssh
+    cd ~/.ssh
     ssh-keygen -t rsa -b 4096
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_ras_pi
