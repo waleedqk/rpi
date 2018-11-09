@@ -2,7 +2,7 @@
 
 1) Edit /etc/hosts
 2) Edit /etc/hostname
-3) Commit Changes 
+3) Commit Changes
 4) Reboot
 
 
