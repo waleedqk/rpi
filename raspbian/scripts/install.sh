@@ -100,11 +100,11 @@ config_dir()
     rm -rf $MYHOME/Templates
     rm -rf $MYHOME/Examples
     sudo apt-get purge wolfram-engine -y
-    mkdir -p $MYHOME/Documents/git
-    mkdir -p $MYHOME/Downloads
-    mkdir -p $MYHOME/Pictures
-    mkdir -p $MYHOME/Videos
-    mkdir -p $MYHOME/Music
+    sudo -u ${SUDO_USER} mkdir -p $MYHOME/Documents/git
+    sudo -u ${SUDO_USER} mkdir -p $MYHOME/Downloads
+    sudo -u ${SUDO_USER} mkdir -p $MYHOME/Pictures
+    sudo -u ${SUDO_USER} mkdir -p $MYHOME/Videos
+    sudo -u ${SUDO_USER} mkdir -p $MYHOME/Music
 }
 
 
