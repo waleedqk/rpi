@@ -7,40 +7,24 @@ REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 MYHOME="/home/${SUDO_USER}"
 
-OPTS=`getopt -o cnth --long config,new-install,test,help -n 'parse-options' -- "$@"`
 
-usage() { echo "Error - Usage: $0 [-c || --config] [-n || --new-install] [-t || --test] [-h || --help]" 1>&2; exit 1; }
-
-
-if [ $? != 0 ] ; then echo "Failed parsing options." usage >&2 ; exit 1 ; fi
-
-echo "$OPTS"
-eval set -- "$OPTS"
-
-while true; do
-  case "$1" in
-    -c | --config )         CONFIG=true;        shift ;;
-    -n | --new-install )    NEW_INSTALL=true;   shift ;;
-    -t | --test )           TEST=true;          shift ;;
-    -h | --help )           HELP=true;          shift ;;
-    -- ) shift; break ;;
-    * ) break ;;
-  esac
-done
-
+BASIC_APPS=(
+    curl
+    git
+    make  
+    xclip
+)
 
 # APP LIST
 APP_LIST=(
     cmake
     cron
-    curl
     espeak
     fail2ban # blocks suspicious requests coming from the internet
     fbi # Display Images on Raspbian Command
     feh
     g++
     gcc
-    git
     htop
     libav-tools #avconv
     mpg321 # cli audio player
@@ -64,7 +48,6 @@ APP_LIST=(
     vlc
     wget
     wireshark
-    xclip
     xrdp # remote desktop application
     youtube-dl
 )
@@ -86,11 +69,45 @@ APP3_LIST=(
 	python3-nmap
 )
 
+
+OPTS=`getopt -o cnth --long config,new-install,test,help -n 'parse-options' -- "$@"`
+
+usage() { echo "Error - Usage: sudo bash $0 [-c || --config] [-n || --new-install] [-t || --test] [-h || --help]" 1>&2; exit 1; }
+
+
+if [ $? != 0 ] ; then echo "Failed parsing options." usage >&2 ; exit 1 ; fi
+
+echo "$OPTS"
+eval set -- "$OPTS"
+
+while true; do
+  case "$1" in
+    -c | --config )         CONFIG=true;        shift ;;
+    -n | --new-install )    NEW_INSTALL=true;   shift ;;
+    -t | --test )           TEST=true;          shift ;;
+    -h | --help )           HELP=true;          shift ;;
+    -- ) shift; break ;;
+    * ) break ;;
+  esac
+done
+
+# echo "CONFIG = ${CONFIG}"
+# echo "NEW_INSTALL = ${NEW_INSTALL}"
+# echo "TEST = ${TEST}"
+# echo "HELP = ${HELP}"
+
+
 # Update the system
 apt_update()
 {
     echo "Update list of available packages"
     apt-get update
+}
+
+basic_utility()
+{
+    echo "Installing basic utilities now ..."
+    sudo apt -y install "${BASIC_APPS[@]}"
 }
 
 
@@ -150,6 +167,7 @@ wireshark_config()
 
 
 git_config() {
+    echo "Setting up git configuration ..."
     sudo -u ${SUDO_USER} git config --global user.name "Waleed Khan"
     sudo -u ${SUDO_USER} git config --global user.email "wqkhan@uwaterloo.ca"
     #git config --global push.default matching
@@ -216,10 +234,15 @@ main()
 
     if [ ! -z "${CONFIG}" ]; then
         echo "Initializing config" 
+        basic_utility
+        git_config
+        tmux_config
+        vim_config
     fi
 
     if [ ! -z "${TEST}" ]; then
         echo "Initializing test" 
+        basic_utility
     fi
 }
 
