@@ -10,8 +10,12 @@ MYHOME="/home/${SUDO_USER}"
 
 BASIC_APPS=(
     curl
+    g++
+    gcc
     git
     make  
+    tmux
+    vim
     xclip
 )
 
@@ -23,8 +27,6 @@ APP_LIST=(
     fail2ban # blocks suspicious requests coming from the internet
     fbi # Display Images on Raspbian Command
     feh
-    g++
-    gcc
     htop
     libav-tools #avconv
     mpg321 # cli audio player
@@ -42,9 +44,7 @@ APP_LIST=(
     ssh
     sshfs
     tcpdump
-    tmux
     unzip
-    vim
     vlc
     wget
     wireshark

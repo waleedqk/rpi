@@ -24,6 +24,10 @@ As you have logged in via ssh don't forget to edit ```/etc/crontab``` again and 
     apt-get upgrade
     apt-get dist-upgrade
 
+## Update the Date-Time zone
+
+    dpkg-reconfigure tzdata
+
 ## Update the root password
 
     passwd root
@@ -68,14 +72,104 @@ Start the service if not running
 
     sudo service ssh start
 
+## Install VNC and Copy-Paste
+
+    sudo apt install xfce4 xfce4-goodies
+
+    apt-get install tightvncserver autocutsel
+
+Set the VNC password using
+
+    vncpasswd
+
+Run the vncserver
+
+    tightvncserver
+
+Kill a vncserver instance
+
+    vncserver -kill :1
+
+### Configure Auto TightVNC Server startup on the Kali Pi
+
+    cd /etc/init.d
+    vim /etc/init.d/vncboot
+
+Insert the script below into the blank document
+
+```
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: vncboot
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start VNC Server at boot time
+# Description: Start VNC Server at boot time.
+### END INIT INFO
+
+USER=root
+HOME=/root
+
+export USER HOME
+
+case "$1" in
+start)
+echo "Starting VNC Server"
+#Insert your favoured settings for a VNC session
+/usr/bin/vncserver :0 -geometry 1280x800 -depth 16 -pixelformat rgb565
+;;
+
+stop)
+echo "Stopping VNC Server"
+/usr/bin/vncserver -kill :0
+;;
+
+*)
+echo "Usage: /etc/init.d/vncboot {start|stop}"
+exit 1
+;;
+esac
+
+exit 0
+```
+
+Change the file perminssions
+
+    chmod 755 /etc/init.d/vncboot
+
+add the dependencies to it by typing
+
+    update-rc.d vncboot defaults
+
 ## Enable Autologin
 
-To enable autologin, type the following into your terminal window.
+To enable autologin in re4son-kernel, type the following into your terminal window.
 
     cd /usr/local/src/re4son-kernel_4*
     ./re4son-pi-tft-setup -a root
 
-## INSTALLING FULL VERSION OF KALI LINUX 
+OR in regular RPi-kali
+
+    nano /etc/lightdm/lightdm.conf
+
+You need to edit these two lines so that they read:
+
+    autologin-user=root
+    autologin-user-timeout=0
+
+Then
+
+    nano /etc/pam.d/lightdm-autologin
+
+We need to hash out or comment out that line by editing it to look like this:
+
+    #auth required pam_succeed_if.so user != root quiet_success
+
+    sudo reboot
+
+## INSTALLING FULL VERSION OF KALI LINUX
 
 To install the full version of Kali Linux you need to type this into the terminal:
 
@@ -105,7 +199,7 @@ to pair with any devices you see, type pair and then the MAC address of the devi
 
 ## Create a Custom MOTD
 
-    Nano /etc/motd
+    nano /etc/motd
 
 Delete the contents and paste whatever you want to show up each time you log in.
 
@@ -123,3 +217,11 @@ https://null-byte.wonderhowto.com/how-to/build-beginner-hacking-kit-with-raspber
 
 Headless SSH post
 https://raspberrypi.stackexchange.com/questions/60606/cant-ssh-in-kali-headless-setup-on-raspberry-pi3
+
+VNC
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-18-04
+https://null-byte.wonderhowto.com/how-to/use-vnc-remotely-access-your-raspberry-pi-from-other-devices-0178997/
+http://blog.sevagas.com/?VNC-to-access-Kali-Linux-on-Raspberry-Pi
+
+Auto Login
+https://dephace.com/raspberry-pi-3-kali-linux-auto-login/
