@@ -207,6 +207,66 @@ tmux_config()
 }
 
 
+install_avr()
+{
+    sudo apt update
+    sudo apt -y install gcc-avr avr-libc
+    sudo apt -y install avrdude
+}
+
+install_octave()
+{
+    sudo apt update
+    sudo apt -y install octave liboctave-dev
+    # pkg install -forge control signal
+}
+
+install_docker()
+{
+    # Uninstall old versions
+    sudo apt-get remove docker docker-engine docker.io
+
+    # Install using the repository
+    sudo apt update
+
+    # Install packages to allow apt to use a repository over HTTPS:
+    sudo apt -y install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        software-properties-common
+
+    # Add Docker’s official GPG key:
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    # verify fingerprint
+    sudo apt-key fingerprint 0EBFCD88
+
+    # set up the stable repository
+    sudo add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
+
+    # INSTALL DOCKER CE
+    sudo apt update
+    sudo apt -y install docker-ce
+    # sudo apt-get install docker-ce=<VERSION>
+
+    # add current user to docker group
+    sudo usermod -aG docker $SUDO_USER
+
+    # test docker ce is installed correctly 
+    sudo docker run hello-world
+
+    ## SYSTEMD
+    # sudo systemctl enable docker
+    # sudo systemctl disable docker
+
+}
+
+
+
 
 main()
 {
@@ -238,6 +298,9 @@ main()
         git_config
         tmux_config
         vim_config
+        # install_avr
+        # install_octave
+        # install_docker
     fi
 
     if [ ! -z "${TEST}" ]; then
