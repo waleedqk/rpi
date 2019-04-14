@@ -14,7 +14,27 @@ As you have logged in via ssh don't forget to edit ```/etc/crontab``` again and 
 
     vim /etc/crontab
 
+## Check Kernel Version
+
+    uname -r
+
+## Install the re4son-kernel
+
+The kernel download list is available here: https://re4son-kernel.com/re4son-pi-kernel/
+
+    sudo bash
+    mount /dev/mmcblk0p1 /boot
+    cd /usr/local/src
+    wget  -O re4son-kernel_current.tar.xz https://re4son-kernel.com/download/re4son-kernel-current/
+    tar -xJf re4son-kernel_current.tar.xz
+    cd re4son-kernel_4*
+    ./install.sh
+
 ## Expand the Installation
+
+    kalipi-config
+
+OR
 
     resize2fs /dev/mmcblk0p2
 
@@ -38,14 +58,14 @@ As you have logged in via ssh don't forget to edit ```/etc/crontab``` again and 
     cd /etc/ssh/
     apt-get install openssh-server
 
+Move old keys to backup folder
+    mkdir insecure_old
+    mv ssh_host* insecure_old
+
 Remove the old keys
 
     update-rc.d -f ssh remove
     update-rc.d -f ssh defaults
-
-Move old keys to backup folder
-    mkdir insecure_old
-    mv ssh_host* insecure_old
 
 Generate new keys
     dpkg-reconfigure openssh-server
@@ -72,9 +92,17 @@ Start the service if not running
 
     sudo service ssh start
 
+## Install raspi-config
+
+    apt-get install triggerhappy lua5.1 alsa-utils curl libcurl4
+    cd /tmp
+    wget https://archive.raspberrypi.org/debian/pool/main/r/raspi-config/raspi-config_20190117_all.deb
+    dpkg -i raspi-config_20190117_all.deb
+    raspi-config
+
 ## Install VNC and Copy-Paste
 
-    sudo apt install xfce4 xfce4-goodies
+    <!-- sudo apt install xfce4 xfce4-goodies -->
 
     apt-get install tightvncserver autocutsel
 
