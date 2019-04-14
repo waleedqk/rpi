@@ -30,6 +30,7 @@ APP_LIST=(
     htop
     libav-tools #avconv
     mpg321 # cli audio player
+    net-tools
     netcat
     nmap
     npm
