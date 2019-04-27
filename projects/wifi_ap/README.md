@@ -14,9 +14,10 @@
 
 ## Set up DHCP server
 
-
-
-
+    sudo nano /etc/dhcpcd.conf
+    nano /etc/network/interfaces
+    nano /etc/hostapd/hostapd.conf
+    sudo nano /etc/default/hostapd
 
 # References
 
