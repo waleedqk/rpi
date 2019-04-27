@@ -20,7 +20,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 ```
 Install all the required software in one go with this command: 
 ```
-sudo apt-get install dnsmasq hostapd
+sudo apt-get install dnsmasq hostapd dhcpcd5
 ```
 Since the configuration files are not ready yet, turn the new software off as follows: 
 ```
@@ -51,7 +51,8 @@ interface wlan0
 Now restart the dhcpcd daemon and set up the new `wlan0` configuration:
 ```
 sudo service dhcpcd restart
-
+or
+sudo systemctl daemon-reload
 ```
 
 ## Configuring the DHCP server (dnsmasq)
@@ -93,7 +94,7 @@ To use the 5 GHz band, you can change the operations mode from hw_mode=g to hw_m
 ```
 interface=wlan0
 driver=nl80211
-ssid=NameOfNetwork
+ssid=Pi_AP
 hw_mode=g
 channel=7
 wmm_enabled=0
@@ -101,7 +102,7 @@ macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase=AardvarkBadgerHedgehog
+wpa_passphrase=1Need2Mangos!
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
@@ -124,12 +125,14 @@ DAEMON_CONF="/etc/hostapd/hostapd.conf"
 Now start up the remaining services:
 
 ```
+sudo systemctl unmask hostapd
+sudo systemctl enable hostapd
 sudo systemctl start hostapd
 sudo systemctl start dnsmasq
 ```
 ### Add routing and masquerade
 
-Edit /etc/sysctl.conf and uncomment this line:
+Edit ```sudo nano /etc/sysctl.conf``` and uncomment this line:
 ```
 net.ipv4.ip_forward=1
 ```
@@ -143,7 +146,7 @@ Save the iptables rule.
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 ```
 
-Edit /etc/rc.local and add this just above "exit 0" to install these rules on boot.
+Edit ```sudo nano /etc/rc.local``` and add this just above "exit 0" to install these rules on boot.
 ```
 iptables-restore < /etc/iptables.ipv4.nat
 ```
@@ -217,10 +220,14 @@ To use the 5 GHz band, you can change the operations mode from 'hw_mode=g' to 'h
  - ad = IEEE 802.11ad (60 GHz). Not available on Raspberry Pi.
 
 ```
+sudo nano /etc/hostapd/hostapd.conf
+```
+
+```
 interface=wlan0
 bridge=br0
 #driver=nl80211
-ssid=NameOfNetwork
+ssid=Pi_AP
 hw_mode=g
 channel=7
 wmm_enabled=0
@@ -228,7 +235,7 @@ macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase=AardvarkBadgerHedgehog
+wpa_passphrase=1Need2Mangos!
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
